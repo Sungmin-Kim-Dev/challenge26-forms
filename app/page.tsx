@@ -49,7 +49,7 @@ export default function Home() {
               name="id"
               type="text"
               required
-              placeholder="Your unique ID"
+              placeholder="ID"
               className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none"
             />
           </div>
@@ -79,9 +79,9 @@ export default function Home() {
           <button
             type="submit"
             disabled={pending}
-            className="focus:ring-opacity-50 w-full rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-orange-600"
+            className="focus:ring-opacity-50 w-full cursor-pointer rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-orange-600"
           >
-            {pending ? "Logging in..." : "Log in"}
+            {pending ? "Loading..." : "Log in"}
           </button>
 
           {state?.message && (
