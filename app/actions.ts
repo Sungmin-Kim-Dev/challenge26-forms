@@ -1,5 +1,23 @@
 "use server";
 
+import { z } from "zod";
+
+const loginSchema = z.object({
+  email: z
+    .string({ required_error: "Email is required." })
+    .email({ message: "Invalid email format." })
+    .refine((email) => email.endsWith("@zod.com"), {
+      message: "Email must end with @zod.com",
+    }),
+  id: z
+    .string({ required_error: "ID is required." })
+    .min(6, { message: "ID must be longer than 5 characters" }),
+  password: z
+    .string({ required_error: "Password is required." })
+    .min(10, { message: "Password must be at least 10 characters long" })
+    .regex(/\d/, { message: "Password must contain at least one number" }),
+});
+
 interface FormState {
   errors?: {
     email?: string[];
@@ -15,30 +33,21 @@ export async function logIn(
 ): Promise<FormState> {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
-  const email = formData.get("email") as string | null;
-  const id = formData.get("id") as string | null;
-  const password = formData.get("password") as string | null;
+  const data = {
+    email: formData.get("email"),
+    id: formData.get("id"),
+    password: formData.get("password"),
+  };
 
-  const errors: FormState["errors"] = {};
+  const result = loginSchema.safeParse(data);
 
-  if (!email) {
-    errors.email = ["Email is required."];
-  }
-  if (!id) {
-    errors.id = ["ID is required."];
-  }
-  if (!password) {
-    errors.password = ["Password is required."];
-  }
-
-  if (Object.keys(errors).length > 0) {
-    return { errors };
-  }
-
-  if (password !== "12345") {
+  if (!result.success) {
+    const fieldErrors = result.error.flatten().fieldErrors;
     return {
       errors: {
-        password: ["Wrong Password"],
+        email: fieldErrors.email,
+        id: fieldErrors.id,
+        password: fieldErrors.password,
       },
     };
   }

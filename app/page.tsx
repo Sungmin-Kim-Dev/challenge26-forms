@@ -6,15 +6,30 @@ import { useActionState } from "react";
 
 interface FormState {
   errors?: {
+    email?: string[]; 
+    id?: string[];
     password?: string[];
   };
   message?: string;
 }
 
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="focus:ring-opacity-50 w-full cursor-pointer rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70" 
+    >
+      {pending ? "Loading..." : "Log in"}
+    </button>
+  );
+}
+
 export default function Home() {
   const initialState: FormState = {};
   const [state, formAction] = useActionState(logIn, initialState);
-  const { pending } = useFormStatus();
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-50">
@@ -31,10 +46,19 @@ export default function Home() {
               id="email"
               name="email"
               type="email"
-              required
-              placeholder="you@example.com"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none"
+              required 
+              placeholder="you@zod.com" 
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+                state?.errors?.email ? "border-red-500" : "border-gray-300" 
+              }`}
             />
+            <p
+              className={`mt-1 text-xs text-red-500 ${!state?.errors?.email && "invisible"}`}
+            >
+              {state?.errors?.email
+                ? state.errors.email[0]
+                : "error placeholder"}
+            </p>
           </div>
 
           <div>
@@ -48,10 +72,17 @@ export default function Home() {
               id="id"
               name="id"
               type="text"
-              required
-              placeholder="ID"
-              className="w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none"
+              required 
+              placeholder="ID" 
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+                state?.errors?.id ? "border-red-500" : "border-gray-300" 
+              }`}
             />
+            <p
+              className={`mt-1 text-xs text-red-500 ${!state?.errors?.id && "invisible"}`}
+            >
+              {state?.errors?.id ? state.errors.id[0] : "error placeholder"}
+            </p>
           </div>
 
           <div>
@@ -66,23 +97,21 @@ export default function Home() {
               name="password"
               type="password"
               required
-              placeholder="••••••••"
-              className="w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none"
+              placeholder="Password"
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+                state?.errors?.password ? "border-red-500" : "border-gray-300"
+              }`}
             />
             <p
               className={`mt-1 text-xs text-red-500 ${!state?.errors?.password && "invisible"}`}
             >
-              {state?.errors?.password ? state.errors.password[0] : "error"}
+              {state?.errors?.password
+                ? state.errors.password[0]
+                : "error placeholder"}
             </p>
           </div>
 
-          <button
-            type="submit"
-            disabled={pending}
-            className="focus:ring-opacity-50 w-full cursor-pointer rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-orange-600"
-          >
-            {pending ? "Loading..." : "Log in"}
-          </button>
+          <SubmitButton />
 
           {state?.message && (
             <p className="mt-2 text-center text-green-600">{state.message}</p>
