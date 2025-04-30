@@ -1,8 +1,13 @@
 @import url("https://cdn.jsdelivr.net/gh/sun-typeface/SUIT@2/fonts/variable/woff2/SUIT-Variable.css");
 @import "tailwindcss";
 
+@layer base {
+  html {
+    font-family: "SUIT Variable", sans-serif;
+  }
+}
+
 @theme {
-  --font-sans: "SUIT Variable", sans-serif;
   --color-t-blue: #1da1f2;
   --color-t-black: #14171a;
   --color-t-dark-gray: #657786;

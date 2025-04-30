@@ -5,10 +5,10 @@ import { z } from "zod";
 const loginSchema = z.object({
   email: z
     .string({ required_error: "Email is required." })
-    .email({ message: "Invalid email format." })
-    .refine((email) => email.endsWith("@zod.com"), {
-      message: "Email must end with @zod.com",
-    }),
+    .email({ message: "Invalid email format." }),
+  // .refine((email) => email.endsWith("@zod.com"), {
+  //   message: "Email must end with @zod.com",
+  // }),
   id: z
     .string({ required_error: "ID is required." })
     .min(6, { message: "ID must be longer than 5 characters" }),

@@ -32,14 +32,12 @@ export default function LogIn() {
   const [state, formAction] = useActionState(logIn, initialState);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-50">
-      <div className="w-full max-w-md rounded-lg bg-white p-8 shadow-lg">
-        <h1 className="mb-6 text-center text-2xl font-bold text-gray-800">
-          Log In
-        </h1>
+    <div className="flex min-h-screen items-center justify-center">
+      <div className="w-full max-w-md rounded-lg p-8 shadow-lg">
+        <h1 className="mb-6 text-center text-2xl font-bold">Log In</h1>
         <form action={formAction} className="space-y-4">
           <div>
-            <label htmlFor="email" className="mb-1 block text-sm text-gray-700">
+            <label htmlFor="email" className="mb-1 block text-sm font-medium">
               Email
             </label>
             <input
@@ -47,7 +45,7 @@ export default function LogIn() {
               name="email"
               type="email"
               required
-              placeholder="you@zod.com"
+              placeholder="you@abc.com"
               className={`focus:border-t-blue focus:ring-t-blue w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none ${
                 state?.errors?.email ? "border-red-500" : "border-gray-300"
               }`}
@@ -62,10 +60,7 @@ export default function LogIn() {
           </div>
 
           <div>
-            <label
-              htmlFor="id"
-              className="mb-1 block text-sm font-medium text-gray-700"
-            >
+            <label htmlFor="id" className="mb-1 block text-sm font-medium">
               ID
             </label>
             <input
@@ -88,7 +83,7 @@ export default function LogIn() {
           <div>
             <label
               htmlFor="password"
-              className="mb-1 block text-sm font-medium text-gray-700"
+              className="mb-1 block text-sm font-medium"
             >
               Password
             </label>
