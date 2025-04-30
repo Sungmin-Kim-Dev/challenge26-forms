@@ -20,7 +20,7 @@ function SubmitButton() {
     <button
       type="submit"
       disabled={pending}
-      className="focus:ring-opacity-50 w-full cursor-pointer rounded-md bg-orange-500 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-orange-600 disabled:cursor-not-allowed disabled:opacity-70" 
+      className="focus:ring-opacity-50 w-full cursor-pointer rounded-md bg-t-blue/80 px-4 py-2 font-semibold text-white transition duration-150 ease-in-out hover:bg-t-blue disabled:cursor-not-allowed disabled:opacity-70" 
     >
       {pending ? "Loading..." : "Log in"}
     </button>
@@ -48,7 +48,7 @@ export default function Home() {
               type="email"
               required 
               placeholder="you@zod.com" 
-              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-t-blue focus:ring-t-blue focus:outline-none ${
                 state?.errors?.email ? "border-red-500" : "border-gray-300" 
               }`}
             />
@@ -74,7 +74,7 @@ export default function Home() {
               type="text"
               required 
               placeholder="ID" 
-              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-t-blue focus:ring-t-blue focus:outline-none ${
                 state?.errors?.id ? "border-red-500" : "border-gray-300" 
               }`}
             />
@@ -98,7 +98,7 @@ export default function Home() {
               type="password"
               required
               placeholder="Password"
-              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-orange-500 focus:ring-orange-500 focus:outline-none ${
+              className={`w-full rounded-md border px-3 py-2 shadow-sm focus:border-t-blue focus:ring-t-blue focus:outline-none ${
                 state?.errors?.password ? "border-red-500" : "border-gray-300"
               }`}
             />
