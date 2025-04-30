@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @theme {
-  /* --font-sans: "SUIT Variable", sans-serif; */
+  --font-sans: "SUIT Variable", sans-serif;
   --color-t-blue: #1da1f2;
   --color-t-black: #14171a;
   --color-t-dark-gray: #657786;
