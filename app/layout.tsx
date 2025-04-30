@@ -1,4 +1,4 @@
-import type {Metadata} from "next";
+import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -13,7 +13,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body className="dark:bg-bg-dark bg-bg-light text-text-main dark:text-text-main-dark">
+        {children}
+      </body>
     </html>
   );
 }
