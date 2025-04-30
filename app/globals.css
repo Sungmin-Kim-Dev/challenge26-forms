@@ -1,2 +1,41 @@
 @import "tailwindcss";
 
+@theme {
+  --color-t-blue: #1da1f2;
+  --color-t-black: #14171a;
+  --color-t-dark-gray: #657786;
+  --color-t-light-gray: #aab8c2;
+  --color-t-xl-gray: #e1e8ed; /* Extra Light Gray */
+  --color-t-xxl-gray: #f5f8fa; /* Extra Extra Light Gray */
+
+  /* Text Colors */
+  --color-text-main: #0f1419; /* Primary text on light backgrounds */
+  --color-text-sub: #536471; /* Secondary text on light backgrounds */
+  --color-text-main-dark: #f7f9f9; /* Primary text on dark backgrounds */
+  --color-text-sub-dark: #8b98a5; /* Secondary text on dark backgrounds */
+
+  /* Background Colors */
+  --color-bg-light: #ffffff; /* Primary background for light theme */
+  --color-bg-dark: #15202b; /* Primary background for dark theme */
+}
+
+/* #1DA1F2 Twitter blue */
+/* #14171A Twitter black */
+/* #657786 Twitter Dark Gray */
+/* #AAB8C2 Twitter Light Gray */
+/* #E1E8ED Twitter Extra Light Gray */
+/* #F5F8FA Twitter Extra Extra Light Gray */
+
+/* #FFFFFF X light bg */
+/* #15202B X dark bg */
+/* #1D9BF0 X blue */
+/* #F91880 X pink */
+/* #7856FF X purple */
+/* #FF7A00 X orange */
+/* #00BA7C X green */
+
+/* #0F1419 X light theme text1 color */
+/* #536471 X light theme text2 color */
+
+/* #F7F9F9 X dark theme text1 color */
+/* #8B98A5 X dark theme text2 color */
