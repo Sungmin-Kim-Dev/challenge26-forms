@@ -10,18 +10,18 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = env("DATABASE_URL")
 }
 
 // User Model
 model User {
   id         Int      @id @default(autoincrement())
-  username   String   @unique 
-  password   String   
-  email      String   @unique 
-  bio        String?  
-  created_at DateTime @default(now()) 
-  updated_at DateTime @updatedAt 
+  username   String   @unique
+  password   String
+  email      String   @unique
+  bio        String?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   // Relations
   tweets Tweet[]
@@ -30,36 +30,35 @@ model User {
 
 // Tweet Model
 model Tweet {
-  id         Int      @id @default(autoincrement()) 
-  tweet      String   
-  created_at DateTime @default(now()) 
-  updated_at DateTime @updatedAt 
+  id         Int      @id @default(autoincrement())
+  tweet      String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   // Relation to User (Many-to-One)
-  userId Int 
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Relation to Like (One-to-Many)
-  likes Like[] 
+  likes Like[]
 
-  @@index([userId]) 
+  @@index([userId])
 }
 
 // Like Model (Join Table for Many-to-Many between User and Tweet)
 model Like {
-  id         Int      @id @default(autoincrement()) 
-  created_at DateTime @default(now()) 
+  id         Int      @id @default(autoincrement())
+  created_at DateTime @default(now())
 
   // Relation to User (Many-to-One)
-  userId Int 
-  user   User @relation(fields: [userId], references: [id], onDelete: Cascade) 
+  userId Int
+  user   User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   // Relation to Tweet (Many-to-One)
-  tweetId Int 
-  tweet   Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade) 
+  tweetId Int
+  tweet   Tweet @relation(fields: [tweetId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, tweetId]) 
+  @@unique([userId, tweetId])
   @@index([userId])
   @@index([tweetId])
 }
-

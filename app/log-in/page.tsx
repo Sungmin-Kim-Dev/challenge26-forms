@@ -1,117 +1,52 @@
 "use client";
 
-import { useFormStatus } from "react-dom";
 import { logIn } from "./actions";
 import { useActionState } from "react";
-
-interface FormState {
-  errors?: {
-    email?: string[];
-    id?: string[];
-    password?: string[];
-  };
-  message?: string;
-}
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-
-  return (
-    <button
-      type="submit"
-      disabled={pending}
-      className="focus:ring-opacity-50 bg-t-blue/80 hover:bg-t-blue w-full cursor-pointer rounded-md px-4 py-2 font-semibold text-white transition duration-150 ease-in-out disabled:cursor-not-allowed disabled:opacity-70"
-    >
-      {pending ? "Loading..." : "Log in"}
-    </button>
-  );
-}
+import Link from "next/link";
+import Input from "@/components/Input";
+import AccountBtn from "@/components/AccountBtn";
 
 export default function LogIn() {
-  const initialState: FormState = {};
-  const [state, formAction] = useActionState(logIn, initialState);
+  const [state, formAction] = useActionState(logIn, null);
 
   return (
     <div className="flex min-h-screen items-center justify-center">
       <div className="w-full max-w-md rounded-lg p-8 shadow-lg">
         <h1 className="mb-6 text-center text-2xl font-bold">Log In</h1>
         <form action={formAction} className="space-y-4">
-          <div>
-            <label htmlFor="email" className="mb-1 block text-sm font-medium">
-              Email
-            </label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              required
-              placeholder="you@abc.com"
-              className={`focus:border-t-blue focus:ring-t-blue w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none ${
-                state?.errors?.email ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            <p
-              className={`mt-1 text-xs text-red-500 ${!state?.errors?.email && "invisible"}`}
-            >
-              {state?.errors?.email
-                ? state.errors.email[0]
-                : "error placeholder"}
-            </p>
-          </div>
+          <Input
+            name="email"
+            type="email"
+            placeholder="you@abc.com"
+            required
+            errors={state?.fieldErrors.email}
+          />
 
-          <div>
-            <label htmlFor="id" className="mb-1 block text-sm font-medium">
-              ID
-            </label>
-            <input
-              id="id"
-              name="id"
-              type="text"
-              required
-              placeholder="ID"
-              className={`focus:border-t-blue focus:ring-t-blue w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none ${
-                state?.errors?.id ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            <p
-              className={`mt-1 text-xs text-red-500 ${!state?.errors?.id && "invisible"}`}
-            >
-              {state?.errors?.id ? state.errors.id[0] : "error placeholder"}
-            </p>
-          </div>
+          <Input
+            name="id"
+            type="text"
+            placeholder="ID"
+            required
+            errors={state?.fieldErrors.id}
+          />
 
-          <div>
-            <label
-              htmlFor="password"
-              className="mb-1 block text-sm font-medium"
-            >
-              Password
-            </label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              required
-              placeholder="Password"
-              className={`focus:border-t-blue focus:ring-t-blue w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none ${
-                state?.errors?.password ? "border-red-500" : "border-gray-300"
-              }`}
-            />
-            <p
-              className={`mt-1 text-xs text-red-500 ${!state?.errors?.password && "invisible"}`}
-            >
-              {state?.errors?.password
-                ? state.errors.password[0]
-                : "error placeholder"}
-            </p>
-          </div>
-
-          <SubmitButton />
-
-          {state?.message && (
-            <p className="mt-2 text-center text-green-600">{state.message}</p>
-          )}
+          <Input
+            name="password"
+            type="password"
+            placeholder="Password"
+            required
+            errors={state?.fieldErrors.password}
+          />
+          <AccountBtn text="Log In" />
         </form>
+        <div className="mt-3 flex justify-center gap-2 text-sm">
+          <span className="text-text-sub dark:text-text-sub-dark">
+            Don't have an account?
+          </span>
+          <Link href="/create-account" className="text-t-blue hover:underline">
+            Sign Up
+          </Link>
+        </div>
       </div>
     </div>
   );

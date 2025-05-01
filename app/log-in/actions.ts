@@ -18,19 +18,8 @@ const loginSchema = z.object({
     .regex(/\d/, { message: "Password must contain at least one number" }),
 });
 
-interface FormState {
-  errors?: {
-    email?: string[];
-    id?: string[];
-    password?: string[];
-  };
-  message?: string;
-}
 
-export async function logIn(
-  prevState: FormState,
-  formData: FormData,
-): Promise<FormState> {
+export async function logIn(prevState: any, formData: FormData) {
   await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const data = {
@@ -42,15 +31,8 @@ export async function logIn(
   const result = loginSchema.safeParse(data);
 
   if (!result.success) {
-    const fieldErrors = result.error.flatten().fieldErrors;
-    return {
-      errors: {
-        email: fieldErrors.email,
-        id: fieldErrors.id,
-        password: fieldErrors.password,
-      },
-    };
+    return result.error.flatten();
   }
 
-  return { message: "Welcome Back!" };
+  // return { message: "Welcome Back!" };
 }
