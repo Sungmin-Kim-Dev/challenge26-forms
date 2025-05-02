@@ -14,7 +14,7 @@ export default function Input({
     <div>
       <input
         name={name}
-        className="focus:border-t-blue focus:ring-t-blue border-t-light-gray mb-2 w-full rounded-md border px-3 py-2 shadow-sm focus:outline-none"
+        className="focus:ring-t-blue ring-t-xl-gray mb-2 w-full rounded-md border border-none py-2 ps-3 ring-2 transition-all ease-in-out focus:ring-4 focus:outline-none"
         {...rest}
       />
       {errors?.map((error, index) => (
