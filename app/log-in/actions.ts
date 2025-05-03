@@ -1,38 +1,80 @@
 "use server";
 
+import {
+  PASSWORD_MIN_LENGTH,
+  PASSWORD_REGEX,
+  PASSWORD_REGEX_ERROR,
+} from "@/lib/constants";
+import db from "@/lib/db";
+import getSession from "@/lib/session";
+import { redirect } from "next/navigation";
 import { z } from "zod";
+import bcrypt from "bcrypt";
+
+const checkEmailExists = async (email: string) => {
+  const user = await db.user.findUnique({
+    where: {
+      email,
+    },
+    select: {
+      id: true,
+    },
+  });
+  return Boolean(user);
+};
 
 const loginSchema = z.object({
   email: z
     .string({ required_error: "Email is required." })
-    .email({ message: "Invalid email format." }),
-  // .refine((email) => email.endsWith("@zod.com"), {
-  //   message: "Email must end with @zod.com",
-  // }),
-  id: z
-    .string({ required_error: "ID is required." })
-    .min(6, { message: "ID must be longer than 5 characters" }),
+    .email()
+    .toLowerCase()
+    .refine(checkEmailExists, "An account with this email does not exist."),
   password: z
     .string({ required_error: "Password is required." })
-    .min(10, { message: "Password must be at least 10 characters long" })
-    .regex(/\d/, { message: "Password must contain at least one number" }),
+    .min(PASSWORD_MIN_LENGTH, "Password must be at least 5 characters long")
+    .regex(PASSWORD_REGEX, PASSWORD_REGEX_ERROR),
 });
 
-
 export async function logIn(prevState: any, formData: FormData) {
-  await new Promise((resolve) => setTimeout(resolve, 1000));
+  // await new Promise((resolve) => setTimeout(resolve, 1000));
 
   const data = {
     email: formData.get("email"),
-    id: formData.get("id"),
     password: formData.get("password"),
   };
 
-  const result = loginSchema.safeParse(data);
+  const result = await loginSchema.safeParseAsync(data);
 
   if (!result.success) {
     return result.error.flatten();
-  }
+  } else {
+    const user = await db.user.findUnique({
+      where: {
+        email: result.data.email,
+      },
+      select: {
+        id: true,
+        password: true,
+      },
+    });
+    const comparePassword = await bcrypt.compare(
+      result.data.password,
+      user!.password ?? "",
+    );
+    if (comparePassword) {
+      const session = await getSession();
+      console.log(session);
 
-  // return { message: "Welcome Back!" };
+      session.id = user!.id;
+      await session.save();
+      redirect("/profile");
+    } else {
+      return {
+        fieldErrors: {
+          password: ["Wrong password."],
+          email: [],
+        },
+      };
+    }
+  }
 }
