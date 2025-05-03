@@ -6,8 +6,8 @@ interface SessionContent {
 }
 
 export default async function getSession() {
-  // return getIronSession<SessionContent>(await cookies(), {
-  //   cookieName: "twitter-clone",
-  //   password: process.env.COOKIE_PASSWORD!,
-  // });
+  return getIronSession<SessionContent>(await cookies(), {
+    cookieName: "twitter-clone-YLtyR8v8",
+    password: process.env.COOKIE_PASSWORD!,
+  });
 }
