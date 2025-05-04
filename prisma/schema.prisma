@@ -47,8 +47,8 @@ model Tweet {
 
 // Like Model (Join Table for Many-to-Many between User and Tweet)
 model Like {
-  id         Int      @id @default(autoincrement())
-  created_at DateTime @default(now())
+  id       Int      @id @default(autoincrement())
+  added_at DateTime @default(now())
 
   // Relation to User (Many-to-One)
   userId Int
