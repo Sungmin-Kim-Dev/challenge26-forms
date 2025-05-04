@@ -1,9 +1,9 @@
-## Challenge 28
+## Challenge 29
 
-#### Prisma
+#### Authentication
 
-1. use SQLite to reset Prisma, and create models named "User", "Tweet", "Like".
-2. "User" model should have these fields: username, password, email, bio, created_at, updated_at
-3. "Tweet" model should have these fields: tweet, created_at, updated_at and "Tweet" has connection with "User".
-4. "Like" model should have "created_at" field and should also have connection with "User" and "Tweet".
-5. Every model should have primary key.
+1. User verification with Zod, server action, middleware, Tailwind, Prisma, iron-session, and bcrypt.
+2. Make three pages: /create-account, /log-in, /profile
+3. In /create-account and /log-in, forms should be validated with zod and show errors.
+4. Only logged in users can see /profile page.
+5. In /profile page, user profile should be displayed.
