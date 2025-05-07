@@ -16,14 +16,19 @@ const publicOnlyUrls: Routes = {
   "/log-in": true,
   "/create-account": true,
 };
+const loggedInOnlyUrls: Routes = {
+  "/": true,
+  "/profile": true,
+};
 
 export async function middleware(request: NextRequest) {
   const session = await getSession();
   const pathname = request.nextUrl.pathname;
   const isPublicOnlyPath = publicOnlyUrls[pathname];
+  const isLoggedInOnlyUrls = loggedInOnlyUrls[pathname];
 
   if (!session.id) {
-    if (pathname === "/profile") {
+    if (isLoggedInOnlyUrls) {
       return NextResponse.redirect(new URL("/log-in", request.url));
     }
   } else {
