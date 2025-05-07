@@ -24,6 +24,19 @@
   /* Background Colors */
   --color-bg-light: #ffffff; /* Primary background for light theme */
   --color-bg-dark: #15202b; /* Primary background for dark theme */
+
+  /* border color */
+  --color-x-border-light: #eff3f4;
+  --color-x-border-dark: #38444d;
+}
+
+@layer components {
+  .text-main {
+    @apply text-text-main dark:text-text-main-dark;
+  }
+  .text-sub {
+    @apply text-text-sub dark:text-text-sub-dark;
+  }
 }
 
 /* #1DA1F2 Twitter blue */
