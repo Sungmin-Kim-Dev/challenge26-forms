@@ -3,7 +3,7 @@ import db from "@/lib/db";
 import { Prisma } from "@prisma/client";
 import { FaTwitter } from "react-icons/fa";
 
-async function getAllTweets() {
+async function getInitialTweets() {
   const tweets = await db.tweet.findMany({
     // select: {
     //   id: true,
@@ -15,19 +15,30 @@ async function getAllTweets() {
     orderBy: {
       created_at: "desc",
     },
+    take: 2,
+    include: {
+      user: {
+        select: {
+          username: true,
+        },
+      },
+    },
+    
   });
   return tweets;
 }
 
-export type AllTweetsProps = Prisma.PromiseReturnType<typeof getAllTweets>;
+export type InitialTweetsProps = Prisma.PromiseReturnType<
+  typeof getInitialTweets
+>;
 
 export default async function Home() {
-  const allTweets = await getAllTweets();
+  const initialTweets = await getInitialTweets();
 
   return (
     <div className="dark:border-x-border-dark border-x-border-light flex min-h-screen flex-col border-x">
       <div className="dark:border-x-border-dark border-x-border-light border-b py-4">
-        <FaTwitter className="text-t-blue mx-auto text-5xl" />
+        <FaTwitter className="text-t-blue mx-auto text-4xl" />
       </div>
       <div className="dark:border-x-border-dark border-x-border-light flex border-b px-4 pt-2">
         <div className="me-2 mt-3">
@@ -44,7 +55,7 @@ export default async function Home() {
           </div>
         </div>
       </div>
-      <TweetList allTweets={allTweets} />
+      <TweetList initialTweets={initialTweets} />
     </div>
   );
 }

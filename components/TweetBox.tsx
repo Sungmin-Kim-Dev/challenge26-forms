@@ -9,28 +9,19 @@ interface TweetProps {
   created_at: Date;
   updated_at: Date;
   userId: number;
+  user: {
+    username: string;
+  };
 }
 
-async function getUsername(id: number) {
-  const username = await db.user.findUnique({
-    where: {
-      id,
-    },
-    select: {
-      username: true,
-    },
-  });
-  return username;
-}
-
-export default async function TweetBox({
+export default function TweetBox({
   tweet,
   id,
   created_at,
   updated_at,
   userId,
+  user,
 }: TweetProps) {
-  const username = await getUsername(userId);
   return (
     <div className="dark:border-x-border-dark border-x-border-light flex border-b px-4 py-3">
       <div className="me-2">
@@ -38,7 +29,7 @@ export default async function TweetBox({
       </div>
       <div>
         <div>
-          <span className="font-extrabold">{username?.username}</span>
+          <span className="font-extrabold">{user.username}</span>
           <span className="text-sub"> · </span>
           <span className="text-sub">
             {formatToTimeAgo(created_at.toString())}

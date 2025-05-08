@@ -37,6 +37,9 @@
   .text-sub {
     @apply text-text-sub dark:text-text-sub-dark;
   }
+  .pagination-btn {
+    @apply border-x-border-light dark:border-x-border-dark disabled:text-x-border-light disabled:dark:text-x-border-dark cursor-pointer border p-1 disabled:cursor-not-allowed;
+  }
 }
 
 /* #1DA1F2 Twitter blue */
