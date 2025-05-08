@@ -14,7 +14,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="dark:bg-bg-dark bg-bg-light text-text-main dark:text-text-main-dark">
-        <div className="mx-auto max-w-[600px]">
+        <div className="dark:border-x-border-dark border-x-border-light mx-auto flex min-h-screen max-w-[600px] flex-col border-x">
           {children}
         </div>
       </body>

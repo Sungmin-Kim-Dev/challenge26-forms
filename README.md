@@ -1,9 +1,10 @@
-## Challenge 29
+## Challenge 30
 
-#### Authentication
+#### Tweets
 
-1. User verification with Zod, server action, middleware, Tailwind, Prisma, iron-session, and bcrypt.
-2. Make three pages: /create-account, /log-in, /profile
-3. In /create-account and /log-in, forms should be validated with zod and show errors.
-4. Only logged in users can see /profile page.
-5. In /profile page, user profile should be displayed.
+1. / page
+2. Only logged in User can move to "/"
+3. "/" page shows all the tweets from the db.
+4. arrow pagination that user can move to next or previous pages with.
+5. When user clicks a tweet, page moves to "/tweets/[id]" and shows the detail of the tweet.
+6. (will display reply as well in the detail page)

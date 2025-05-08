@@ -23,7 +23,7 @@ async function getInitialTweets() {
         },
       },
     },
-    
+
   });
   return tweets;
 }
@@ -36,7 +36,7 @@ export default async function Home() {
   const initialTweets = await getInitialTweets();
 
   return (
-    <div className="dark:border-x-border-dark border-x-border-light flex min-h-screen flex-col border-x">
+    <>
       <div className="dark:border-x-border-dark border-x-border-light border-b py-4">
         <FaTwitter className="text-t-blue mx-auto text-4xl" />
       </div>
@@ -56,6 +56,6 @@ export default async function Home() {
         </div>
       </div>
       <TweetList initialTweets={initialTweets} />
-    </div>
+    </>
   );
 }

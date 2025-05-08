@@ -1,5 +1,5 @@
-import db from "@/lib/db";
 import { formatToTimeAgo } from "@/lib/utils";
+import Link from "next/link";
 import { FaRegHeart, FaRetweet } from "react-icons/fa6";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 
@@ -23,7 +23,10 @@ export default function TweetBox({
   user,
 }: TweetProps) {
   return (
-    <div className="dark:border-x-border-dark border-x-border-light flex border-b px-4 py-3">
+    <Link
+      href={`/tweets/${id}`}
+      className="dark:border-x-border-dark border-x-border-light flex border-b px-4 py-3"
+    >
       <div className="me-2">
         <div className="size-10 rounded-full bg-teal-600" />
       </div>
@@ -34,7 +37,6 @@ export default function TweetBox({
           <span className="text-sub">
             {formatToTimeAgo(created_at.toString())}
           </span>
-          <span className="text-sub">{/* {created_at.toTimeString()} */}</span>
         </div>
         <div>
           <span>{tweet}</span>
@@ -54,6 +56,6 @@ export default function TweetBox({
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }

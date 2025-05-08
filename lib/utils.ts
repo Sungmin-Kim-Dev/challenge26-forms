@@ -34,3 +34,22 @@ export const formatToTimeAgo = (date: string): string => {
     return dateFormatter.format(originalDate);
   }
 };
+
+export const formatToDateTime = (date: Date): string => {
+  const timeFormatter = new Intl.DateTimeFormat("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+
+  const dateFormatter = new Intl.DateTimeFormat("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  const timeString = timeFormatter.format(date);
+  const dateString = dateFormatter.format(date);
+
+  return `${timeString} · ${dateString}`;
+};
