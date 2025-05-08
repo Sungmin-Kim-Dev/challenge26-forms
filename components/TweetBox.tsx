@@ -1,25 +1,52 @@
+import db from "@/lib/db";
+import { formatToTimeAgo } from "@/lib/utils";
 import { FaRegHeart, FaRetweet } from "react-icons/fa6";
 import { HiOutlineChatBubbleOvalLeft } from "react-icons/hi2";
 
-export default function TweetBox() {
+interface TweetProps {
+  tweet: string;
+  id: number;
+  created_at: Date;
+  updated_at: Date;
+  userId: number;
+}
+
+async function getUsername(id: number) {
+  const username = await db.user.findUnique({
+    where: {
+      id,
+    },
+    select: {
+      username: true,
+    },
+  });
+  return username;
+}
+
+export default async function TweetBox({
+  tweet,
+  id,
+  created_at,
+  updated_at,
+  userId,
+}: TweetProps) {
+  const username = await getUsername(userId);
   return (
-    <div className="flex py-3">
+    <div className="dark:border-x-border-dark border-x-border-light flex border-b px-4 py-3">
       <div className="me-2">
         <div className="size-10 rounded-full bg-teal-600" />
       </div>
       <div>
         <div>
-          <span className="font-extrabold">Username</span>
+          <span className="font-extrabold">{username?.username}</span>
           <span className="text-sub"> · </span>
-          <span className="text-sub">11h</span>
+          <span className="text-sub">
+            {formatToTimeAgo(created_at.toString())}
+          </span>
+          <span className="text-sub">{/* {created_at.toTimeString()} */}</span>
         </div>
         <div>
-          <span>
-            Tweet contents Lorem ipsum dolor sit, amet consectetur adipisicing
-            elit. Magni beatae inventore, placeat itaque vero soluta harum
-            aliquam tenetur corrupti autem aut saepe quis quasi, sint sunt eaque
-            quos cumque recusandae?
-          </span>
+          <span>{tweet}</span>
         </div>
         <div className="text-sub mt-3 flex gap-20 text-lg">
           <div className="flex items-center gap-1">
