@@ -16,7 +16,7 @@ export default function Home() {
             What's happening?
           </span>
           <div className="flex justify-end">
-            <button className="dark:bg-x-border-light text-text-main rounded-full px-4 py-2 text-sm font-extrabold opacity-50">
+            <button className="bg-text-main text-white dark:bg-x-border-light dark:text-text-main rounded-full px-4 py-2 text-sm font-extrabold opacity-50">
               Post
             </button>
           </div>
